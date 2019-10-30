@@ -1,0 +1,46 @@
+Your job is to write a function which increments a string, to create a new string.
+
+If the string already ends with a number, the number should be incremented by 1.
+If the string does not end with a number. the number 1 should be appended to the new string.
+
+
+
+function incrementString(str) {
+  var letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numbers = "0123456789";
+  var lastChar = str[str.length-1];
+  var newStr = "";
+
+  //Case if no numbers in string
+  if (letters.indexOf(lastChar) > -1) {
+    newStr = str + "1";
+  } else {
+    var numStr = "";
+    var zeroes = "";
+    for (var i = 0; i < str.length; i++) {
+    //add all letters into new string
+      if (letters.indexOf(str[i]) > -1) {
+        newStr += str[i];
+      //preserve leading zeroes in a separate string
+      } else if (i < str.length-1 && str[i] === "0") {
+        console.log("FOUND ONE");
+        if (i === 0 || str[i-1] === "0" || letters.indexOf(str[i-1]) > -1) {
+          zeroes += "0";
+        }
+      //third string holds number
+      } else if (numbers.indexOf(str[i] > 0)) {
+        numStr += str[i];
+      }
+    }
+    var finalNumStr = ((parseInt(numStr) + 1).toString());
+    //takes away a 0 if the addition results in a longer digit
+    if (finalNumStr.length > numStr.length) {
+      zeroes = zeroes.slice(0, zeroes.length-1);
+    }
+    //adds all strings together
+    newStr = newStr + zeroes + finalNumStr;
+  }
+  return newStr;
+}
+
+incrementString("0059")
